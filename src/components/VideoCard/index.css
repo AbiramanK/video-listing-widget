@@ -1,0 +1,55 @@
+.videoCard {
+  border-radius: 0;
+  cursor: pointer;
+  border-width: 0;
+}
+
+.logoContainerCollapse {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.logoContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+}
+
+.playButtonContainer {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+}
+
+.addToWatchLaterContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.durationContainer {
+  position: absolute;
+  right: 8px;
+  bottom: 11px;
+}
+
+.duration {
+  z-index: 5;
+  background-color: rgba(23, 34, 35, 0.75);
+  color: #fff;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.profile {
+  width: 20px;
+  height: 20px;
+}

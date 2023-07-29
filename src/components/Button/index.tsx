@@ -9,6 +9,7 @@ export interface ButtonProps {
   endIcon?: React.ReactNode;
   style?: React.CSSProperties;
   onClick?: Function;
+  hoverEffect?: boolean;
 }
 
 function Button(props: ButtonProps) {
@@ -19,7 +20,7 @@ function Button(props: ButtonProps) {
   }
   return (
     <RBButton
-      className="button"
+      className={`button ${props?.hoverEffect ? "hoverEffect" : ""}`}
       style={{ paddingBlock: 3, ...props?.style }}
       onClick={onClick}
     >

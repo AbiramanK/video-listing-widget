@@ -1,0 +1,13 @@
+.title {
+  cursor: pointer;
+  color: #3a5161;
+  font-weight: 600;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title:hover {
+  color: #141c21;
+}

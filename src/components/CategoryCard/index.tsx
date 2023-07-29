@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 
 import "components/CategoryCard/index.css";
 import Button, { ButtonProps } from "components/Button";
+import Title from "components/Title";
 
 export interface CategoryCardProps {
   title?: string;
@@ -25,7 +26,7 @@ function CategoryCard(props: CategoryCardProps) {
           <div className="cardCoverContainer" />
           <div className="actionContainer">
             <div className="descriptionContainer">
-              <h2 className="cardTitle">{props?.title}</h2>
+              <Title>{props?.title}</Title>
               <p className="cardText">{props?.description}</p>
             </div>
             <Button

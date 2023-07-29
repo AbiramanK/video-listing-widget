@@ -2,3 +2,9 @@
   padding-block: 3px;
   width: 100%;
 }
+
+.button.hoverEffect {
+  background-color: rgba(23, 34, 35, 0.75);
+  color: #fff;
+  border-width: 0;
+}

@@ -1,0 +1,24 @@
+.fadeInSection {
+  transition: visibility 0.2s linear, opacity 0.2s ease-out,
+    transform 0.3s ease-out;
+  will-change: opacity, visibility;
+}
+
+.fadeInSection.top {
+  transform: translateY(-2vh);
+}
+
+.fadeInSection.bottom {
+  transform: translateY(2vh);
+}
+
+.fadeInSection.isVisible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+.fadeInSection.isHide {
+  opacity: 0;
+  visibility: hidden;
+}
