@@ -37,7 +37,11 @@ function VideoCard(props: VideoCardProps) {
         onMouseLeave={onMouseLeave}
         aria-controls="logContainer"
         aria-expanded={!hovered}
-        style={{ borderRadius: 0, borderWidth: 0, ...props?.cardStyle }}
+        style={{
+          borderRadius: 0,
+          borderWidth: 0,
+          ...props?.cardStyle,
+        }}
       >
         <Card.Body
           style={{
@@ -52,7 +56,7 @@ function VideoCard(props: VideoCardProps) {
               <Card.Img src={props?.coverPic} style={{ borderRadius: 0 }} />
             ) : (
               <Placeholder animation="glow">
-                <Placeholder xs={12} style={{ height: 130 }} />
+                <Placeholder xs={12} style={{ height: 160 }} />
               </Placeholder>
             )}
 
