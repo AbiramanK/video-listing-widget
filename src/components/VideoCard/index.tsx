@@ -1,8 +1,7 @@
 import React, { FunctionComponent, SVGProps, useState } from "react";
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Placeholder } from "react-bootstrap";
 
 import "components/VideoCard/index.css";
-import Movie from "assets/images/test.avif";
 import { ReactComponent as SP } from "assets/images/sp.svg";
 import Fade from "components/Fade";
 import Button from "components/Button";
@@ -16,6 +15,7 @@ export interface VideoCardProps {
   views?: number;
   authorPic?: FunctionComponent<SVGProps<SVGSVGElement>>;
   duration?: string;
+  cardStyle?: React.CSSProperties;
 }
 
 function VideoCard(props: VideoCardProps) {
@@ -37,7 +37,7 @@ function VideoCard(props: VideoCardProps) {
         onMouseLeave={onMouseLeave}
         aria-controls="logContainer"
         aria-expanded={!hovered}
-        style={{ borderRadius: 0, borderWidth: 0 }}
+        style={{ borderRadius: 0, borderWidth: 0, ...props?.cardStyle }}
       >
         <Card.Body
           style={{
@@ -48,7 +48,13 @@ function VideoCard(props: VideoCardProps) {
           }}
         >
           <Container style={{ position: "relative", padding: 0 }}>
-            <Card.Img src={props?.coverPic} style={{ borderRadius: 0 }} />
+            {props?.coverPic ? (
+              <Card.Img src={props?.coverPic} style={{ borderRadius: 0 }} />
+            ) : (
+              <Placeholder animation="glow">
+                <Placeholder xs={12} style={{ height: 130 }} />
+              </Placeholder>
+            )}
 
             <div id="logoContainer" className="logoContainer">
               <Fade visible={!hovered}>
@@ -84,7 +90,7 @@ function VideoCard(props: VideoCardProps) {
             </div>
             <div className="durationContainer">
               <Fade visible={hovered} transition="bottom">
-                <span className="duration">{props?.duration}</span>
+                <span className="duration">{props?.duration ?? "--:--"}</span>
               </Fade>
             </div>
           </Container>
@@ -97,9 +103,15 @@ function VideoCard(props: VideoCardProps) {
               rowGap: 4,
             }}
           >
-            <Title style={{ fontSize: 14, marginBottom: 0 }}>
-              {props?.title}
-            </Title>
+            {props?.title ? (
+              <Title style={{ fontSize: 14, marginBottom: 0 }}>
+                {props?.title}
+              </Title>
+            ) : (
+              <Placeholder animation="glow">
+                <Placeholder xs={8} />
+              </Placeholder>
+            )}
             <Container
               style={{
                 padding: 0,
@@ -108,10 +120,26 @@ function VideoCard(props: VideoCardProps) {
                 columnGap: 5,
               }}
             >
-              <SP className="profile" />
-              <Description>{props?.author}</Description>
+              {props?.author ? (
+                <>
+                  <SP className="profile" />
+                  <Description>{props?.author}</Description>
+                </>
+              ) : (
+                <>
+                  <Placeholder
+                    size="lg"
+                    style={{ width: 20, borderRadius: 10 }}
+                  />
+                  <Placeholder xs={4} />
+                </>
+              )}
               <Description>|</Description>
-              <Description>{props?.views} views</Description>
+              {props?.views ? (
+                <Description>{props?.views} views</Description>
+              ) : (
+                <Placeholder xs={2} />
+              )}
             </Container>
           </Container>
         </Card.Body>

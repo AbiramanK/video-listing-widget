@@ -1,0 +1,72 @@
+#videoListContainer.videoListContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+  column-gap: 20px;
+  padding-inline: 15px;
+  padding-block: 60px;
+  overflow-y: hidden;
+  height: 600px;
+}
+
+.paginationArrow {
+  font-size: 40px;
+  cursor: pointer;
+}
+
+#videoContainer.videoContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  column-gap: 10px;
+  padding-inline: 0;
+  justify-content: space-around;
+  width: 100%;
+
+  transition: visibility 1s linear, opacity 1s ease-out, transform 1.2s ease-out,
+    width 0s linear;
+  will-change: opacity, visibility;
+
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  overflow: hidden;
+}
+
+#videoContainer.videoContainer.scrollAnimation {
+  width: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+  visibility: hidden;
+}
+
+#nextVideoContainer.nextVideoContainer {
+  width: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  column-gap: 10px;
+  padding-inline: 0;
+  justify-content: space-around;
+
+  transition: visibility 1s linear, opacity 1s ease-out, transform 1.2s ease-out,
+    width 0s linear;
+  will-change: opacity, visibility;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: none;
+  overflow: hidden;
+  transform: translateX(100%);
+}
+
+#nextVideoContainer.nextVideoContainer.nextScrollAnimation {
+  width: 100%;
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  margin-left: -20px;
+}

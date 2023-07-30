@@ -10,24 +10,29 @@ export interface CategoryCardProps {
   description?: string;
   logo?: string;
   button?: ButtonProps;
+  containerStyle?: React.CSSProperties;
 }
 
 function CategoryCard(props: CategoryCardProps) {
   return (
     <React.Fragment>
-      <Card className="card">
-        <Card.Body className="cardBody" style={{ padding: 0 }}>
+      <Card
+        id="categoryCard"
+        className="categoryCard"
+        style={{ ...props?.containerStyle }}
+      >
+        <Card.Body className="categoryCardBody" style={{ padding: 0 }}>
           <Card.Img
             src={props?.logo}
             width={150}
             height={150}
-            className="cardCoverImage"
+            className="categoryCardCoverImage"
           />
-          <div className="cardCoverContainer" />
+          <div className="categoryCardCoverContainer" />
           <div className="actionContainer">
             <div className="descriptionContainer">
               <Title>{props?.title}</Title>
-              <p className="cardText">{props?.description}</p>
+              <p className="categoryCardText">{props?.description}</p>
             </div>
             <Button
               title={props?.button?.title ?? "Watch now"}
