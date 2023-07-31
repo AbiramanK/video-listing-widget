@@ -6,7 +6,7 @@
   column-gap: 20px;
   padding-inline: 15px;
   padding-block: 60px;
-  overflow-y: hidden;
+  overflow: hidden;
   height: 600px;
 }
 
@@ -23,34 +23,33 @@
   column-gap: 10px;
   padding-inline: 0;
   justify-content: space-around;
-  transition: visibility 1s linear, opacity 1s ease-out, transform 1.2s ease-out,
-    width 0s linear;
+  transition: visibility 0.5s linear, opacity 0.5s ease-out,
+    transform 0.5s ease-out, width 0s linear;
   will-change: opacity, visibility;
-  overflow: hidden;
 }
 
-#videoContainer.videoContainer {
+#videoListContainer > .videoContainer {
   width: 100%;
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
 }
 
-#videoContainer.videoContainer.scrollAnimation {
+#videoListContainer > .scrollAnimation {
   width: 100%;
   opacity: 0;
   transform: translateX(-100%);
   visibility: hidden;
 }
 
-#nextVideoContainer.nextVideoContainer {
+#videoListContainer > .nextVideoContainer {
   width: 100%;
   opacity: 0;
   visibility: visible;
   transform: translateX(100%);
 }
 
-#nextVideoContainer.nextVideoContainer.nextScrollAnimation {
+#videoListContainer > .nextVideoContainer.nextScrollAnimation {
   width: 100%;
   opacity: 1;
   transform: none;

@@ -350,22 +350,20 @@ const videosResult: VideosResultInterface = {
 };
 
 async function getVideos(count: number, cursor?: string) {
-  // const result = await fetch(
-  //   `${
-  //     process.env.REACT_APP_YOUTUBE_API
-  //   }?part=snippet&maxResults=${count}&q=english movies&type=video&key=${
-  //     process.env.REACT_APP_GOOGLE_API_KEY
-  //   }&publishedAfter=2022-11-14T00:00:00Z&order=date${
-  //     cursor ? `&pageToken=${cursor}` : ""
-  //   }`
-  // );
-  // console.log("videos result: ", result);
-  // if (result?.ok) {
-  //   const videos = await result?.json();
-  //   console.log("videos: ", videos);
-  //   return videos;
-  // }
-  return videosResult;
+  const result = await fetch(
+    `${
+      process.env.REACT_APP_YOUTUBE_API
+    }?part=snippet&maxResults=${count}&q=english movies&type=video&publishedAfter=2022-11-14T00:00:00Z&order=date${
+      cursor !== undefined ? `&pageToken=${cursor}` : ``
+    }&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+  );
+
+  if (result?.ok) {
+    const videos = await result?.json();
+    return videos;
+  }
+
+  // return videosResult;
 }
 
 export { getVideos };

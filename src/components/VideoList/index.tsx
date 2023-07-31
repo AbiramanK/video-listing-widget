@@ -7,6 +7,10 @@ import VimeoLogo from "assets/images/vimeo.svg";
 import { ReactComponent as SP } from "assets/images/sp.svg";
 import { VideoItemInterface, getVideos } from "api";
 
+const DEFAULT_MAX_RESULTS = parseInt(
+  process.env.REACT_APP_DEFAULT_MAX_RESULTS!
+);
+
 export interface VideoListProps {}
 
 function VideoList(props: VideoListProps) {
@@ -17,17 +21,13 @@ function VideoList(props: VideoListProps) {
   const [videos, setVideos] = useState<Array<VideoItemInterface>>();
   const [nextCursor, setNextCursor] = useState<string>();
   const [previousCursor, setPreviousCursor] = useState<string>();
-  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getVideosList();
   }, []);
 
   async function getVideosList(cursor?: string) {
-    const data = await getVideos(
-      parseInt(process.env.REACT_APP_DEFAULT_MAX_RESULTS!),
-      cursor!
-    );
+    const data = await getVideos(DEFAULT_MAX_RESULTS, cursor!);
 
     setVideos(data?.items);
     setNextCursor(data?.nextPageToken);
@@ -35,7 +35,6 @@ function VideoList(props: VideoListProps) {
   }
 
   async function previous() {
-    setLoading(true);
     setScroll(true);
     setScrollAnimation(true);
     setNextScroll(false);
@@ -43,18 +42,17 @@ function VideoList(props: VideoListProps) {
     setVideos(undefined);
 
     setTimeout(async () => {
-      await getVideosList(previousCursor);
+      getVideosList(previousCursor);
       setScroll(false);
-      setLoading(false);
-    }, 1500);
+      setPreviousScroll(false);
+    }, 500);
+
     setTimeout(() => {
       setScrollAnimation(false);
-      setPreviousScroll(false);
-    }, 2500);
+    }, 800);
   }
 
   async function next() {
-    setLoading(true);
     setScroll(true);
     setScrollAnimation(true);
     setPreviousScroll(false);
@@ -62,18 +60,19 @@ function VideoList(props: VideoListProps) {
     setVideos(undefined);
 
     setTimeout(async () => {
-      await getVideosList(nextCursor);
+      getVideosList(nextCursor);
       setScroll(false);
+    }, 500);
 
-      setLoading(false);
-    }, 1500);
     setTimeout(() => {
       setScrollAnimation(false);
-    }, 2500);
+    }, 800);
   }
   return (
     <Container id="videoListContainer" className="videoListContainer">
-      <Title style={{ zIndex: 1 }}>
+      <Title
+        style={{ zIndex: 1, pointerEvents: previousCursor ? "auto" : "none" }}
+      >
         <i
           className="bi bi-chevron-left paginationArrow"
           onClick={previous}
@@ -86,24 +85,43 @@ function VideoList(props: VideoListProps) {
         containerStyle={{ zIndex: 1 }}
       />
       <Container
-        id={scroll && nextScroll ? `videoContainer` : `nextVideoContainer`}
         className={`videoContent ${
-          scroll && nextScroll ? "videoContainer" : "nextVideoContainer"
-        } ${scrollAnimation ? "scrollAnimation" : "nextScrollAnimation"}`}
+          previousScroll
+            ? "nextVideoContainer"
+            : scrollAnimation && !nextScroll
+            ? ""
+            : scroll && (nextScroll || !previousScroll)
+            ? "videoContainer"
+            : "nextVideoContainer"
+        } ${
+          previousScroll
+            ? ""
+            : scrollAnimation
+            ? "scrollAnimation"
+            : "nextScrollAnimation"
+        }`}
       >
-        {(videos ?? [...new Array(8)])?.map((video, index) => (
-          <VideoCard
-            key={video?.id?.videoId! ?? index}
-            coverPic={video?.snippet?.thumbnails?.high?.url!}
-            title={video?.snippet?.title!}
-            author={video?.snippet?.channelTitle}
-            authorPic={SP}
-            views={video! ? 896 : undefined}
-            duration={video! ? "10:18" : undefined}
-          />
-        ))}
+        {(videos ?? [...new Array(DEFAULT_MAX_RESULTS)])?.map(
+          (video, index) => (
+            <VideoCard
+              key={video?.id?.videoId! ?? index}
+              coverPic={video?.snippet?.thumbnails?.high?.url!}
+              title={video?.snippet?.title!}
+              author={video?.snippet?.channelTitle}
+              authorPic={SP}
+              views={video! ? 896 : undefined}
+              duration={video! ? "10:18" : undefined}
+            />
+          )
+        )}
       </Container>
-      <Title style={{ zIndex: 1, marginLeft: nextScroll ? -15 : -30 }}>
+      <Title
+        style={{
+          zIndex: 1,
+          marginLeft: nextScroll ? -15 : -30,
+          pointerEvents: nextCursor ? "auto" : "none",
+        }}
+      >
         <i className="bi bi-chevron-right paginationArrow" onClick={next}></i>
       </Title>
     </Container>
